@@ -8,6 +8,7 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
+import { delay } from "./utils";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -16,12 +17,12 @@ export async function fetchRevenue() {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
-    // console.log('Fetching revenue data...');
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log('Fetching revenue data...');
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Revenue[]>`SELECT * FROM revenue`;
 
-    // console.log('Data fetch completed after 3 seconds.');
+    console.log('Data fetch completed after 3 seconds.');
 
     return data;
   } catch (error) {
@@ -184,6 +185,37 @@ export async function fetchCustomers() {
   }
 }
 
+export async function fetchTransaksi() {
+  try {
+    const data = await sql<Transaksi[]>`SELECT * FROM transaksi ORDER BY tanggal DESC`;
+
+    const convertedData = data.map(item => ({
+      ...item,
+    }));
+
+    return convertedData;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Transaksi data.');
+  }
+}
+
+export async function fetchProduk() {
+  try {
+
+    console.log('Fetching Produk data...');
+    await new Promise((resolve) => setTimeout(resolve, 6000));
+    
+    const data = await sql<Produk[]>`SELECT * FROM produk`;
+    
+    console.log('Data fetch completed after 6 seconds.');
+    return data;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Produk data.');
+  }
+} 
+
 export async function fetchFilteredCustomers(query: string) {
   try {
     const data = await sql<CustomersTableType[]>`
@@ -215,4 +247,103 @@ export async function fetchFilteredCustomers(query: string) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch customer table.');
   }
+}
+
+export type Produk = {
+  id_produk: number;
+  nama_produk: string;
+  harga: number;
+  stock: number;
+  foto: string;
+  kategori: string;
+  deskripsi: string;
+}
+
+export type Transaksi = {
+  id_transaksi: number;
+  id_produk: number;
+  nama_pembeli: string;
+  tanggal: string | Date;
+  total_harga: number;
+  status: string;
+}
+
+export interface DashboardSummary {
+  totalProducts: number;
+  totalTransactions: number;
+  totalRevenue: string;
+  activeUsers: number;
+  topSellingProduct: string;
+}
+
+export interface ChartData {
+  revenueData: {
+    month: string;
+    online: number;
+    retail: number;
+  }[];
+}
+
+export interface DashboardData {
+  summary: DashboardSummary;
+  chartData: ChartData;
+}
+
+// Data fetching functions with artificial delay
+export async function fetchProducts(): Promise<Produk[]> {
+  await delay(1500); // Artificial delay to simulate loading
+  const response = await fetch('/api/admin/products');
+  if (!response.ok) {
+    throw new Error('Failed to fetch products');
+  }
+  return response.json();
+}
+
+export async function fetchTransactions(): Promise<Transaksi[]> {
+  await delay(2000); // Artificial delay to simulate loading
+  const response = await fetch('/api/admin/transactions');
+  if (!response.ok) {
+    throw new Error('Failed to fetch transactions');
+  }
+  return response.json();
+}
+
+export async function fetchDashboardData(): Promise<DashboardData> {
+  await delay(2500); // Artificial delay to simulate loading
+  const response = await fetch('/api/admin/dashboard');
+  if (!response.ok) {
+    throw new Error('Failed to fetch dashboard data');
+  }
+  return response.json();
+}
+
+// Individual data fetchers for Suspense implementation
+export async function fetchProductCount(): Promise<number> {
+  await delay(800);
+  const data = await fetchDashboardData();
+  return data.summary.totalProducts;
+}
+
+export async function fetchTransactionCount(): Promise<number> {
+  await delay(2000);
+  const data = await fetchDashboardData();
+  return data.summary.totalTransactions;
+}
+
+export async function fetchActiveUsers(): Promise<number> {
+  await delay(1400);
+  const data = await fetchDashboardData();
+  return data.summary.activeUsers;
+}
+
+export async function fetchTopSellingProduct(): Promise<string> {
+  await delay(1600);
+  const data = await fetchDashboardData();
+  return data.summary.topSellingProduct;
+}
+
+export async function fetchRevenueData(): Promise<ChartData['revenueData']> {
+  await delay(2000);
+  const data = await fetchDashboardData();
+  return data.chartData.revenueData;
 }

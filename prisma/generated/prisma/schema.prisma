@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "generated/prisma"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model customers {
+  id        String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name      String @db.VarChar(255)
+  email     String @db.VarChar(255)
+  image_url String @db.VarChar(255)
+}
+
+model invoices {
+  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  customer_id String   @db.Uuid
+  amount      Int
+  status      String   @db.VarChar(255)
+  date        DateTime @db.Date
+}
+
+model produk {
+  id_produk   Int      @id(map: "Produk_pkey") @default(autoincrement())
+  Nama_produk String?  @db.VarChar
+  stok        Int?
+  foto        String?  @db.VarChar
+  deskripsi   String?
+  harga       Decimal? @db.Decimal(10, 2)
+}
+
+model revenue {
+  month   String @unique @db.VarChar(4)
+  revenue Int
+}
+
+model transaksi {
+  id_transaksi Int       @id(map: "Transaksi_pkey") @default(autoincrement())
+  id_produk    Int?
+  nama_pembeli String?   @db.VarChar
+  tanggal      DateTime? @db.Date
+  total_harga  Decimal?  @db.Decimal(10, 2)
+}
+
+model users {
+  id       String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name     String @db.VarChar(255)
+  email    String @unique
+  password String
+}

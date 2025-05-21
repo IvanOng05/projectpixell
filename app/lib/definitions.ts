@@ -86,3 +86,43 @@ export type InvoiceForm = {
   amount: number;
   status: 'pending' | 'paid';
 };
+
+export type Produk = {
+  id_produk: number;
+  nama_produk: string;
+  harga: number;
+  stock: number;
+  foto: string;
+  kategori: string;
+  deskripsi: string;
+};
+
+export type Transaksi = {
+  id_transaksi: number;
+  id_produk: number;
+  nama_pembeli: string;
+  tanggal: string | Date;
+  total_harga: number;
+  status: string;
+};
+
+export interface DashboardSummary {
+  totalProducts: number;
+  totalTransactions: number;
+  totalRevenue: string;
+  activeUsers: number;
+  topSellingProduct: string;
+}
+
+export interface ChartData {
+  revenueData: {
+    month: string;
+    online: number;
+    retail: number;
+  }[];
+}
+
+export interface DashboardData {
+  summary: DashboardSummary;
+  chartData: ChartData;
+}
