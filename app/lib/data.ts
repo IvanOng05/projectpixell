@@ -9,6 +9,7 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 import { delay } from "./utils";
+export { sql };
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -37,8 +38,7 @@ export async function fetchLatestInvoices() {
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
       FROM invoices
       JOIN customers ON invoices.customer_id = customers.id
-      ORDER BY invoices.date DESC
-      LIMIT 5`;
+      ORDER BY invoices.date DESC`;
 
     const latestInvoices = data.map((invoice) => ({
       ...invoice,
@@ -182,21 +182,6 @@ export async function fetchCustomers() {
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch all customers.');
-  }
-}
-
-export async function fetchTransaksi() {
-  try {
-    const data = await sql<Transaksi[]>`SELECT * FROM transaksi ORDER BY tanggal DESC`;
-
-    const convertedData = data.map(item => ({
-      ...item,
-    }));
-
-    return convertedData;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch Transaksi data.');
   }
 }
 
@@ -346,4 +331,144 @@ export async function fetchRevenueData(): Promise<ChartData['revenueData']> {
   await delay(2000);
   const data = await fetchDashboardData();
   return data.chartData.revenueData;
+}
+
+export async function fetchTransaksi(query: string = '', currentPage: number = 1) {
+  const ITEMS_PER_PAGE = 6;
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  try {
+    const data = await sql<Transaksi & { nama_produk: string }[]>`
+      SELECT 
+        t.id_transaksi,
+        t.id_produk,
+        t.nama_pembeli,
+        t.tanggal::text,
+        t.total_harga,
+        t.status,
+        p.nama_produk
+      FROM transaksi t
+      JOIN produk p ON t.id_produk = p.id_produk
+      WHERE p.nama_produk ILIKE ${`%${query}%`}
+      ORDER BY t.tanggal DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+    return data;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Transaksi data.');
+  }
+}
+
+// Fetch transaction by ID for editing
+export async function fetchTransaksiById(id_transaksi: number) {
+  try {
+    const data = await sql<Transaksi[]>`
+      SELECT 
+        id_transaksi,
+        id_produk,
+        nama_pembeli,
+        tanggal::text,
+        total_harga,
+        status
+      FROM transaksi
+      WHERE id_transaksi = ${id_transaksi}
+    `;
+    return data[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch transaction.');
+  }
+}
+
+// Fetch total pages for pagination
+export async function fetchTransaksiPages(query: string = '') {
+  try {
+    const data = await sql`
+      SELECT COUNT(*)
+      FROM transaksi t
+      JOIN produk p ON t.id_produk = p.id_produk
+      WHERE p.nama_produk ILIKE ${`%${query}%`}
+    `;
+    const totalPages = Math.ceil(Number(data[0].count) / 6);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of transactions.');
+  }
+}
+
+// Fetch products for form dropdown
+export async function fetchProdukForForm() {
+  try {
+    const data = await sql<{ id_produk: number; nama_produk: string }[]>`
+      SELECT id_produk, nama_produk
+      FROM produk
+      ORDER BY nama_produk ASC
+    `;
+    return data;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch products for form.');
+  }
+}
+
+
+export async function fetchProdukPages(query: string) {
+  try {
+    const count = await sql`
+      SELECT COUNT(*)
+      FROM produk
+      WHERE nama_produk ILIKE ${'%' + query + '%'}
+    `;
+    const totalPages = Math.ceil(Number(count[0].count) / 10);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch product pages.');
+  }
+}
+
+export async function fetchProdukById(id_produk: string | number) {
+  try {
+    // Convert and validate id_produk
+    const parsedId = Number(id_produk);
+    if (isNaN(parsedId) || parsedId <= 0) {
+      throw new Error('Invalid product ID');
+    }
+
+    const produk = await sql<Produk[]>`
+      SELECT id_produk, nama_produk, harga, deskripsi, stock, foto, kategori
+      FROM produk
+      WHERE id_produk = ${parsedId}
+    `;
+    return produk[0]; // Return the first (and only) product
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch product by ID.');
+  }
+}
+
+export async function fetchFilteredProduk(query: string = '', currentPage: number = 1) {
+  const ITEMS_PER_PAGE = 10;
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  try {
+    const data = await sql<Produk[]>`
+      SELECT 
+        id_produk,
+        nama_produk,
+        harga,
+        stock,
+        foto,
+        kategori,
+        deskripsi
+      FROM produk
+      WHERE nama_produk ILIKE ${`%${query}%`}
+      ORDER BY nama_produk ASC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+    return data;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Produk data.');
+  }
 }

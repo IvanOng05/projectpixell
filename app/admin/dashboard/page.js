@@ -17,7 +17,7 @@ export default function DashboardPage() {
       {/* Header with Navigation */}
       <header className="bg-purple-900 text-white p-4 flex justify-between items-center">
         <div className="flex items-center">
-          <Image src="/pixell-logo.png" alt="PIXELL PHONE" width={120} height={40} priority />
+          <Image src="/LOGOPIXELL.png" alt="PIXELL PHONE" width={120} height={40} priority />
         </div>
         <nav className="space-x-4">
           <a href="#beranda" className="hover:text-purple-200">Beranda</a>

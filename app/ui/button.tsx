@@ -1,17 +1,18 @@
-import clsx from 'clsx';
+'use client';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+import { ButtonHTMLAttributes } from 'react';
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export function Button({ children, className, ...rest }: ButtonProps) {
+export default function Button({ children, type = 'button', disabled, className = '', ...props }: ButtonProps) {
   return (
     <button
-      {...rest}
-      className={clsx(
-        'flex h-10 items-center rounded-lg bg-blue-500 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-blue-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50',
-        className,
-      )}
+      type={type}
+      disabled={disabled}
+      className={`px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
+      {...props}
     >
       {children}
     </button>

@@ -27,7 +27,7 @@ model invoices {
 model produk {
   id_produk   Int      @id(map: "Produk_pkey") @default(autoincrement())
   Nama_produk String?  @db.VarChar
-  stok        Int?
+  stock        Int?
   foto        String?  @db.VarChar
   deskripsi   String?
   harga       Decimal? @db.Decimal(10, 2)

@@ -24,10 +24,10 @@ const nextConfig = {
       },
     ],
   },
-  turbo: {
-    // Add Turbopack-specific rules if needed (currently none required)
-    rules: {},
-  },
+  // Remove 'turbo' configuration to avoid the warning
+  // turbo: {
+  //   rules: {},
+  // },
 };
 
 export default nextConfig;
