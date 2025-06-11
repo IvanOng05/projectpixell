@@ -64,7 +64,7 @@ export default function TopNav() {
           {/* Right Side (Account/Cart) */}
           <div className="flex items-center space-x-4">
             <Link
-              href="/admin/akunadmin"
+              href="/admin/AkunAdmin"
               className={`p-2 rounded-full transition-colors duration-300 ${
                 isActive('/admin/akunadmin') ? 'bg-purple-800' : 'hover:bg-purple-800'
               }`}

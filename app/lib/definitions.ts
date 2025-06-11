@@ -1,7 +1,4 @@
-// This file contains type definitions for your data.
-// It describes the shape of the data, and what data type each property should accept.
-// For simplicity of teaching, we're manually defining these types.
-// However, these types are generated automatically if you're using an ORM such as Prisma.
+// app/lib/definitions.ts
 export type User = {
   id: string;
   name: string;
@@ -21,8 +18,6 @@ export type Invoice = {
   customer_id: string;
   amount: number;
   date: string;
-  // In TypeScript, this is called a string union type.
-  // It means that the "status" property can only be one of the two strings: 'pending' or 'paid'.
   status: 'pending' | 'paid';
 };
 
@@ -39,7 +34,6 @@ export type LatestInvoice = {
   amount: string;
 };
 
-// The database returns a number for amount, but we later format it to a string with the formatCurrency function
 export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
   amount: number;
 };
@@ -92,18 +86,27 @@ export type Produk = {
   nama_produk: string;
   harga: number;
   stock: number;
-  foto: string;
+  foto: string | null | undefined; // Allow null/undefined for robustness
   kategori: string;
   deskripsi: string;
+  created_at: string;
+  updated_at: string;
+  brand?: string | null; // Added for ShopPage.tsx
+  isFeatured?: boolean; // Added for ShopPage.tsx
 };
 
 export type Transaksi = {
   id_transaksi: number;
-  id_produk: number;
+  id_produk: number; // Explicitly included
   nama_pembeli: string;
   tanggal: string | Date;
   total_harga: number;
   status: string;
+};
+
+export type BrandSalesData = {
+  name: string;
+  sales: number;
 };
 
 export interface DashboardSummary {
@@ -120,6 +123,7 @@ export interface ChartData {
     online: number;
     retail: number;
   }[];
+  brandSales: BrandSalesData[]; // Added for brand analytics
 }
 
 export interface DashboardData {

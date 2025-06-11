@@ -93,34 +93,6 @@ const AdminDashboard = () => {
     fetchData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-purple-700 border-r-transparent"></div>
-          <p className="mt-2 text-gray-700">Loading dashboard data...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-red-600 text-xl font-bold mb-4">Error</h2>
-          <p className="text-gray-700">{error}</p>
-          <button
-            className="mt-4 bg-purple-700 text-white px-4 py-2 rounded hover:bg-purple-800"
-            onClick={() => window.location.reload()}
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-gray-50">
       <div>

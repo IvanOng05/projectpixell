@@ -24,7 +24,7 @@ export default async function ProductsPage() {
                   <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
-              <tbody class Ascending
+              <tbody 
                 className="bg-white divide-y divide-gray-200">
                 {products.map((produk) => (
                   <tr key={produk.id_produk} className="hover:bg-gray-50">

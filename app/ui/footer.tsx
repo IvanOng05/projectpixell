@@ -43,11 +43,10 @@ export default function Footer() {
         <div className="space-y-6">
           <h3 className="text-xl font-bold text-[#A91D92]-300">Tautan Cepat</h3>
           <ul className="space-y-3">
-            <FooterLink href="/dashboard/customers" text="Beranda" />
-            <FooterLink href="/dashboard/customers/produk" text="Produk" />
-            <FooterLink href="/dashboard/customers/tentangkami" text="Tentang Kami" />
-            <FooterLink href="/dashboard/customers/kontak" text="Kontak" />
-            <FooterLink href="/dashboard/customers/testimoni" text="Testimoni" />
+            <FooterLink href="/customers" text="Beranda" />
+            <FooterLink href="/customers/produk" text="Produk" />
+            <FooterLink href="/customers/tentangkami" text="Tentang Kami" />
+            <FooterLink href="/customers/kontak" text="Kontak" />
           </ul>
         </div>
 

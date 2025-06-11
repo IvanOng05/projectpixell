@@ -13,7 +13,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-
     "plugins": [
       {
         "name": "next"
@@ -22,7 +21,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "types": ["@types/node", "next"]
   },
   "include": [
     "next-env.d.ts",
@@ -30,7 +30,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/lib/placeholder-data.ts",
-    "scripts/seed.js"
-, "app/lib/prisma.ts", "app/api/customers/products/route.js", "prisma/seed.js", "app/ui/skeletons/CardsSkeletons.js", "app/ui/skeletons/ChartSkeletons.js", "app/ui/skeletons/ProductTableSkeletons.js", "app/ui/skeletons/TransactionTableSkeletons.js"  ],
-  "exclude": ["node_modules"]
+    "app/types.ts" // Ensure this is included
+, "app/lib/db.js"  ],
+  "exclude": ["node_modules", "**/*.js"]
 }

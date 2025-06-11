@@ -24,25 +24,25 @@ export default function TopNav() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-8">
               <Link
-                href="/dashboard/customers"
+                href="/customers"
                 className="px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-800 transition-colors duration-300"
               >
                 Beranda
               </Link>
               <Link
-                href="/dashboard/customers/produk"
+                href="/customers/produk"
                 className="px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-800 transition-colors duration-300"
               >
                 Produk
               </Link>
               <Link
-                href="/dashboard/customers/tentangkami"
+                href="/customers/tentangkami"
                 className="px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-800 transition-colors duration-300"
               >
                 Tentang Kami
               </Link>
               <Link
-                href="/dashboard/customers/kontak"
+                href="/customers/kontak"
                 className="px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-800 transition-colors duration-300"
               >
                 Kontak
@@ -53,7 +53,7 @@ export default function TopNav() {
           {/* Right Side (Account/Cart) */}
           <div className="flex items-center space-x-4">
             <Link
-              href="/dashboard/customers/transaksi/cart"
+              href="/customers/transaksi/cart"
               className="p-2 rounded-full hover:bg-purple-800 transition-colors duration-300 relative"
             >
               <svg
@@ -76,7 +76,7 @@ export default function TopNav() {
             </Link>
             
             <Link
-              href="/dashboard/customers/akun"
+              href="/customers/akun"
               className="p-2 rounded-full hover:bg-purple-800 transition-colors duration-300"
             >
               <svg
@@ -126,25 +126,25 @@ export default function TopNav() {
       <div className="md:hidden hidden">
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-purple-900">
         <Link
-                href="/dashboard/customers"
+                href="/customers"
                 className="px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-800 transition-colors duration-300"
               >
                 Beranda
               </Link>
               <Link
-                href="/dashboard/customers/produk"
+                href="/customers/produk"
                 className="px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-800 transition-colors duration-300"
               >
                 Produk
               </Link>
               <Link
-                href="/dashboard/customers/tentangkami"
+                href="/customers/tentangkami"
                 className="px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-800 transition-colors duration-300"
               >
                 Tentang Kami
               </Link>
               <Link
-                href="/dashboard/customers/kontak"
+                href="/customers/kontak"
                 className="px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-800 transition-colors duration-300"
               >
                 Kontak

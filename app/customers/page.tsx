@@ -164,7 +164,7 @@ export default function CustomerDashboardPage() {
             <h3 className="text-2xl font-bold text-blue-700 flex items-center">  
               VIVO
             </h3>
-            <Link href="/dashboard/customers/produk" className="text-blue-700 font-medium text-sm flex items-center">
+            <Link href="/customers/produk" className="text-blue-700 font-medium text-sm flex items-center">
               Lihat Semua
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-1">
                 <path d="M9 18l6-6-6-6"/>
@@ -242,7 +242,7 @@ export default function CustomerDashboardPage() {
             </Link>
 
             {/* Product 3 */}
-            <Link href="/dashboard/customers/transaksi/editpemesanan" className="group">
+            <Link href="/customers/transaksi/editpemesanan" className="group">
               <div className="rounded-lg p-3 transition-all hover:shadow-md group-hover:scale-105">
                 <div className="relative bg-gray-50 rounded-lg p-3 mb-3 flex items-center justify-center h-36">
                   <Image
@@ -396,7 +396,7 @@ export default function CustomerDashboardPage() {
             <h3 className="text-2xl font-bold text-green-700 flex items-center">
               OPPO
             </h3>
-            <Link href="/dashboard/customers/produk" className="text-green-700 font-medium text-sm flex items-center">
+            <Link href="/customers/produk" className="text-green-700 font-medium text-sm flex items-center">
               Lihat Semua
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-1">
                 <path d="M9 18l6-6-6-6"/>

@@ -294,7 +294,7 @@ export async function fetchTransactions(): Promise<Transaksi[]> {
 }
 
 export async function fetchDashboardData(): Promise<DashboardData> {
-  await delay(2500); // Artificial delay to simulate loading
+  await delay(2000); // Artificial delay to simulate loading
   const response = await fetch('/api/admin/dashboard');
   if (!response.ok) {
     throw new Error('Failed to fetch dashboard data');
@@ -472,3 +472,25 @@ export async function fetchFilteredProduk(query: string = '', currentPage: numbe
     throw new Error('Failed to fetch Produk data.');
   }
 }
+
+// app/lib/data.ts
+export const testimonials = [
+  {
+    id: 1,
+    name: "John Doe",
+    rating: 4.5,
+    comment: "Produk ini sangat bagus dan worth it untuk harganya!",
+    date: "2025-06-01",
+    phoneModel: "Samsung Galaxy S23",
+    avatarUrl: "/images/avatar1.jpg",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    rating: 5,
+    comment: "Layanan cepat dan kualitas produk luar biasa.",
+    date: "2025-06-05",
+    phoneModel: "Vivo Y100",
+    avatarUrl: "/images/avatar2.jpg",
+  },
+];

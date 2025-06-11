@@ -81,9 +81,9 @@ const LoginPage = () => {
     
     // Route based on username
     if (formData.username === 'admin123') {
-      router.push('/admin');
+      router.push('/admin/dashboard');
     } else if (formData.username === 'user123') {
-      router.push('/dashboard/customers');
+      router.push('/customers');
     }
   };
 
@@ -150,7 +150,6 @@ const LoginPage = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="px-2"
               >
-                {showPassword ? <FaEyeSlash size={20} className="text-gray-500 cursor-pointer" /> : <FaEye size={20} className="text-gray-500 cursor-pointer" />}
               </button>
             </div>
             {errors.password && (
