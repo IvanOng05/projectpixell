@@ -47,10 +47,12 @@ export default function DaftarTransaksi({
     if (result?.error) {
       setError(result.error);
     } else {
-      // Refresh halaman untuk memastikan data terbaru dari server
       router.refresh();
     }
   };
+
+  // Fallback client-side sorting if server doesn't sort
+  const sortedData = [...initialData].sort((a, b) => a.id_transaksi - b.id_transaksi);
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 bg-gray-100 min-h-screen">
@@ -78,7 +80,7 @@ export default function DaftarTransaksi({
 
       {error && <div className="p-4 mb-6 text-red-500 bg-red-100 rounded">{error}</div>}
 
-      {initialData.length === 0 ? (
+      {sortedData.length === 0 ? (
         <div className="bg-white p-8 rounded-lg shadow-md text-center">
           <p className="text-gray-600">Tidak ada transaksi yang ditemukan.</p>
         </div>
@@ -97,7 +99,7 @@ export default function DaftarTransaksi({
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {initialData.map((transaksi) => (
+              {sortedData.map((transaksi) => (
                 <tr key={transaksi.id_transaksi} className="hover:bg-gray-50">
                   <td className="px-6 py-4 text-sm text-gray-900">{transaksi.id_transaksi}</td>
                   <td className="px-6 py-4 text-sm text-gray-900">{transaksi.nama_produk || 'N/A'}</td>

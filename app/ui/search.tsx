@@ -12,6 +12,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', '1');
+    params.set('sort', 'id_transaksi_asc'); // Enforce sorting by id_transaksi ascending
     
     if (term) {
       params.set('query', term);

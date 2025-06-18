@@ -1,4 +1,3 @@
-// app/admin/dashboard/analytics/page.js
 'use client';
 import { Suspense, useState, useEffect } from 'react';
 import { fetchDashboardData } from '@/app/lib/data.client';
