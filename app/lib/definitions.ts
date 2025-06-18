@@ -130,3 +130,17 @@ export interface DashboardData {
   summary: DashboardSummary;
   chartData: ChartData;
 }
+
+export type Produk1 = {
+  id_produk: string;
+  nama_produk: string;
+  harga: number;
+  stock: number;
+  foto: string;
+  kategori: string;
+  deskripsi: string;
+  created_at: string;
+  updated_at: string;
+  brand?: string | null;
+  isFeatured?: boolean;
+};

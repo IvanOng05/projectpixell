@@ -1,10 +1,9 @@
-"use client";
-
-import { TestimonialCard, TestimonialStats } from '@/app/ui/customers/testimonial'; // Adjust path if needed
-import { testimonials } from '@/app/lib/data';
+import { TestimonialCard, TestimonialStats } from '@/app/ui/customers/testimonial';
 import Footer from "@/app/ui/footer";
+import { statictestimonials, fetchTestimonialsFromDB } from '@/app/lib/data';
 
-export default function CustomersPage() {
+export default async function CustomersPage() {
+  const testimonials = await (await fetchTestimonialsFromDB()) || statictestimonials;;
   return (
     <div className="w-full bg-white">
       {/* Header Full Width */}
@@ -29,6 +28,8 @@ export default function CustomersPage() {
             <TestimonialCard
               key={testimonial.id}
               {...testimonial}
+              phoneModel="Tidak Diketahui"
+              avatarUrl={undefined}
               className="hover:shadow-lg"
             />
           ))}

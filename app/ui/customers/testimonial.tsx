@@ -3,23 +3,23 @@
 import { Star } from "lucide-react";
 
 interface TestimonialCardProps {
-  name: string;
+  user_name: string;
+  testimonial_text: string;
   rating: number;
-  comment: string;
-  date: string;
-  phoneModel: string;
-  avatarUrl?: string;
+  created_at: string;
   className?: string;
+  phoneModel?: string;
+  avatarUrl?: string;
 }
-
 export function TestimonialCard({
-  name,
+  user_name,
+  testimonial_text,
   rating,
-  comment,
-  date,
-  phoneModel,
+  created_at,
+  phoneModel = "Tidak Diketahui",
   avatarUrl,
   className = "",
+
 }: TestimonialCardProps) {
   return (
     <div className={`bg-whitesmoke rounded-lg border p-5 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col ${className} hover:scale-105 transform`}>
@@ -29,20 +29,20 @@ export function TestimonialCard({
           {avatarUrl ? (
             <img 
               src={avatarUrl} 
-              alt={name}
+              alt={user_name}
               className="w-full h-full object-cover"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
               <span className="text-2xl font-bold text-gray-600">
-                {name.charAt(0)}
+                {user_name.charAt(0)}
               </span>
             </div>
           )}
         </div>
         <div className="text-center">
-          <h3 className="font-semibold text-gray-800 text-lg">{name}</h3>
-          <p className="text-sm text-gray-500">{date}</p>
+          <h3 className="font-semibold text-gray-800 text-lg">{user_name}</h3>
+          <p className="text-sm text-gray-500">{created_at}</p>
         </div>
       </div>
 
@@ -66,7 +66,7 @@ export function TestimonialCard({
       {/* Bagian Komentar dengan Styling yang Lebih Baik */}
       <p className="font-bold text-gray-700 mb-1">Komentar:</p>
       <div className="bg-gray-50 p-3 rounded-lg italic mb-3 shadow-inner border border-gray-100">
-        <p className="text-gray-700 leading-relaxed">"{comment}"</p>
+        <p className="text-gray-700 leading-relaxed">"{testimonial_text}"</p>
       </div>
 
       {/* Phone Model dengan Badge Style */}

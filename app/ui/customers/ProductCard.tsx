@@ -32,14 +32,14 @@ export default function ProductCard({
   isFeatured,
 }: ProductCardProps) {
   // Determine the image source
-  const imageSrc = foto && isValidUrl(foto) ? foto : '/placeholder.png';
+  const imageSrc = foto && isValidUrl(foto) ? foto : '/public';
 
   return (
     <div className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
       <Link href={`/products/${id_produk}`}>
         <div className="relative w-full h-48 mb-4">
           {/* <Image
-            src={imageSrc}
+            src={`imageSrc.png`}
             alt={nama_produk || 'Product image'}
             fill
             className="object-cover rounded"
@@ -47,9 +47,9 @@ export default function ProductCard({
             priority={isFeatured}
             onError={(e) => {
               // Fallback to placeholder if image fails to load
-              (e.target as HTMLImageElement).src = '/placeholder.png';
-            }} */}
-          />
+              (e.target as HTMLImageElement).src = '/public/placeholder.png';
+            }}
+          /> */}
         </div>
         <h3 className="text-lg font-semibold">{nama_produk}</h3>
         <p className="text-gray-600">{kategori}</p>

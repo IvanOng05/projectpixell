@@ -8,19 +8,7 @@ import Footer from "@/app/ui/footer";
 import { useProducts } from '@/app/hooks/productHooks';
 import ProductCard from '@/app/ui/customers/ProductCard';
 
-export type Produk = {
-  id_produk: string;
-  nama_produk: string;
-  harga: number;
-  stock: number;
-  foto: string;
-  kategori: string;
-  deskripsi: string;
-  created_at: string;
-  updated_at: string;
-  brand?: string | null;
-  isFeatured?: boolean;
-};
+
 
 const ITEMS_PER_PAGE = 8;
 
@@ -115,6 +103,7 @@ function Pagination({
     </div>
   );
 }
+
 
 export default function ShopPage() {
   const searchParams = useSearchParams();

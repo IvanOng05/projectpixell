@@ -9,9 +9,14 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 import { delay } from "./utils";
+import { NextResponse } from 'next/server';
 export { sql };
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+
+export async function fetchTestimonialsFromDB() {
+  return await sql`SELECT * FROM testimonials`;
+}
 
 export async function fetchRevenue() {
   try {
@@ -474,7 +479,7 @@ export async function fetchFilteredProduk(query: string = '', currentPage: numbe
 }
 
 // app/lib/data.ts
-export const testimonials = [
+export const statictestimonials= [
   {
     id: 1,
     name: "John Doe",
